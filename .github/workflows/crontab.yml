@@ -1,9 +1,9 @@
-name: Monthly Build
+name: Daily Build
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 0 12 * *
+    - cron: 0 0 8 * * ?
 
 jobs:
   build:
@@ -26,9 +26,9 @@ jobs:
 
       - name: Push Tag
         run: |
-          git config --global user.name 'Dreamacro'
-          git config --global user.email 'dreamacro@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git config --global user.name 'Lemonawa'
+          git config --global user.email 'lemonawa@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.THE_GITHUB_TOKEN }}@github.com/Lemonawa/maxmind-geoip.git
           git tag ${{steps.tag.outputs.result}}
           git push origin ${{steps.tag.outputs.result}}
       
@@ -44,7 +44,7 @@ jobs:
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.THE_GITHUB_TOKEN }}
         with:
           files: dist/Country.mmdb
           tag_name: ${{steps.tag.outputs.result}}
@@ -55,4 +55,4 @@ jobs:
           target_branch: release
           build_dir: dist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.THE_GITHUB_TOKEN }}
